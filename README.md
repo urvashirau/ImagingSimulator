@@ -13,13 +13,23 @@ Run the simulator :
 - Install  'pandas' and  'dash' 
 - Run the app as   <path-to-python>/ipython simmer.py
 - You should see : 
-       Running on http://127.0.0.1:8050/
-		   Debugger PIN: 650-504-788
+           Running on http://127.0.0.1:8050
+           Debugger PIN: 650-504-788
   
 - Point your browser to  http://127.0.0.1:8050/
 
 
 Example Screenshots : 
 
-![Example 1](https://github.com/urvashirau/ImagingSimulator/blob/AddFigs/Docs/sim_example_2.png)
+[Y config snapshot](Docs/sim_example_1.png)
+
+[Spiral config short synthesis](Docs/sim_example_2.png)
+
+[Random config snapshot, robust weighting](Docs/sim_example3.png)
+
+[Circle config Point spread function](Docs/sim_example4.png)
+
+[Spiral config extended emission](Docs/sim_example5.png)
+
+[Random config extended emission, missing flux](Docs/sim_example6.png)
 
