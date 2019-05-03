@@ -21,15 +21,15 @@ Run the simulator :
 
 Example Screenshots : 
 
-[Y config snapshot](Docs/sim_example_1.png)
+![Y-config snapshot observation](Docs/sim_example_1.png)
 
-[Spiral config short synthesis](Docs/sim_example_2.png)
+![Spiral config short synthesis](Docs/sim_example_2.png)
 
-[Random config snapshot, robust weighting](Docs/sim_example3.png)
+![Random config snapshot with robust weighting](Docs/sim_example3.png)
 
-[Circle config Point spread function](Docs/sim_example4.png)
+![Circular config with Point spread function](Docs/sim_example4.png)
 
-[Spiral config extended emission](Docs/sim_example5.png)
+![Spiral config with extended emission](Docs/sim_example5.png)
 
-[Random config extended emission, missing flux](Docs/sim_example6.png)
+![Random config with extended emission, missing short spacing flux](Docs/sim_example6.png)
 
