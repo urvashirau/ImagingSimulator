@@ -1,5 +1,5 @@
 # ImagingSimulator
-An interactive tool to introduce the concepts of how an imaging radio interferometer works
+An interactive tool to demo how an imaging radio interferometer works
 
 Supported Features :
 
@@ -11,7 +11,7 @@ Supported Features :
 Run the simulator :
 
 - Install  'pandas' and  'dash' 
-- Run the app as   <path-to-python>/ipython simmer.py
+- Run the app as   path-to-python/ipython simmer.py
 - You should see : 
            Running on http://127.0.0.1:8050
            Debugger PIN: 650-504-788
