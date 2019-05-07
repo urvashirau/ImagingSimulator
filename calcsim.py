@@ -252,7 +252,7 @@ class CalcSim:
     def drawGaussian(self,  xpos, ypos, amp, sigma):
         rad = sigma*5
         shp = self.sky.shape
-        print shp[0], shp[1]
+        #print shp[0], shp[1]
         #        for xx in range( np.max(xpos-rad,0), np.min(xpos+rad,shp[0]-1)):
         #           for yy in range( np.max(ypos-rad,0),np.min(ypos+rad,shp[1]-1)):
         for xx in range(0,shp[0]):
