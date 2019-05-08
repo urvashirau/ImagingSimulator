@@ -286,8 +286,8 @@ class CalcSim:
         aparr = np.zeros((self.npix,self.npix),'float')
         dcarr = np.zeros((self.npix,self.npix),'float')
         for loc in locs:
-            xloc = self.npix/2+int(loc[0]*self.npix/2)
-            yloc=self.npix/2+int(loc[1]*self.npix/2)
+            xloc = int(self.npix/2)+int(loc[0]*self.npix/2)
+            yloc = int(self.npix/2)+int(loc[1]*self.npix/2)
             aparr[xloc,yloc] = aparr[xloc,yloc]+1.0
 
 
@@ -303,7 +303,7 @@ class CalcSim:
         elif weighting=='robust':
             self.uvcov = (self.uvcov)**2/ ( (self.uvcov)**2 + 0.005 )
 
-        self.drawdisk(self.npix/2,self.npix/2,int(rad))
+        self.drawdisk(int(self.npix/2),int(self.npix/2),int(rad))
         self.psf = np.real(self.ft2d(self.uvcov))
         self.sumwt = np.max(self.psf)
         #print 'Max of psf : ', np.max(self.psf)
