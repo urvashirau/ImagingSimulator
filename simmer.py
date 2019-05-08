@@ -250,7 +250,7 @@ def update_figure(selected_config,
             changeseed=False
         if eval(selected_nant)==2:
             selected_config='RandomConfig'
-#            print "Using random locations for 2 antennas"
+            print("Using random locations for 2 antennas")
         tel.calcAntList(configtype = selected_config, 
                         zoom=2**selected_zoom, 
                         changeseed=changeseed, 
