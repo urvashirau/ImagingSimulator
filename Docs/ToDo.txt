@@ -1,0 +1,9 @@
+- Add noise (Tsys) with a control for the level, plus the correct math that accounts for 'more data' when the hourangle range is increased.
+
+- Add finite dish diameters and get primary beams and the whole Area/Tsys effect on the image noise.
+
+- Add a filled aperture option. See if there's an easy way to visualize the relation between the PSF and the PB.
+
+- Show true images somewhere.
+
+- Add amp and phase visibility errors : This would need a change to the way gridding is done. 
