@@ -68,6 +68,22 @@ class CalcSim:
                         ang = ang+120.0
                         rad=0.1
 
+            elif configtype=='TConfig':
+                eastlocs = np.zeros(N)
+                northlocs = np.zeros(N)
+                elevlocs = np.ones(N)*0.1
+
+                spac = 1200.0/N
+                for ant in range(0,N):
+                    if ant < int(N/2.0):
+                        eastlocs[ant] = (ant - int(N/4.0)) * spac
+                        if eastlocs[ant] >= 0:
+                            eastlocs[ant] = eastlocs[ant]+spac
+                        northlocs[ant] = int(N/4)*spac
+                    else:
+                        eastlocs[ant] = 0
+                        northlocs[ant] = (ant - int(0.75*N)) * spac + spac
+
             elif configtype=='SpiralConfig':
                 eastlocs = np.zeros(N)
                 northlocs = np.zeros(N)

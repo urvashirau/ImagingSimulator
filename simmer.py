@@ -39,6 +39,7 @@ app.layout = html.Div([
                         {'label': 'Y', 'value': 'YConfig'},
                         {'label': 'Spiral', 'value': 'SpiralConfig'},
                         {'label': 'Circle', 'value': 'CircleConfig'},
+                        {'label': 'T', 'value': 'TConfig'},
                         {'label': 'Random', 'value': 'RandomConfig'},
                         {'label': 'Random with Compact Core', 'value': 'RandomCoreConfig'}
                     ],
@@ -47,9 +48,9 @@ app.layout = html.Div([
                 dcc.Dropdown(
                     id='nant-dropdown',
                     options=[
-                        #                                {'label': '2 antennas', 'value': '2'},
+#                        {'label': '1 antenna', 'value': '1'},
                         {'label': '12 antennas', 'value': '12'},
-                        {'label': '30 antennas', 'value': '30'},
+                        {'label': '32 antennas', 'value': '32'},
                         {'label': '60 antennas', 'value': '60'}
                     ],
                     value='12'
