@@ -6,8 +6,8 @@ __author__      = "Urvashi R.V."
 __email__ = "rurvashi@nrao.edu"
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 #import dash_daq as daq
 #import pandas as pd
@@ -97,37 +97,31 @@ app.layout = html.Div([
                     updatemode='mouseup'
                 ) 
                 
-                #                        daq.NumericInput(
-                #                            id = 'declination-picker',
-                #                            label='Source Declination (deg)',
-                #                            labelPosition='left',
-                #                            size=120,
-                #                            min=-30,
-                #                            max=90,
-                #                            value=+50.0
-                #                            ),
-                #                        daq.NumericInput(
-                #                            id = 'latitude-picker',
-                #                            label='Observatory Latitude (deg)',
-                #                            labelPosition='left',
-                #                            size=120,
-                #                            min=-90,
-                #                            max=+90,
-                #                           value=+34.0
-                #                            )
             ],  style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'}) ,
             
             html.Div( [
-                html.H6(children='Object to observe'),
-                dcc.Dropdown(
-                    id='source-dropdown',
-                    options=[
-                        {'label': 'Few Compact Sources', 'value': 'im1'},
-                        {'label': 'One Point Source', 'value': 'im2'},
-                        {'label': 'Multi-scale Structure', 'value': 'im3'}
-                    ],
-                    value='im1'
-                ) ] , style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'})
+                html.H6(children='Observation Hour-Angle Range'),
+                dcc.RangeSlider(
+                    id='timerange-slider',
+                    count=1,
+                    min=-6.0,
+                    max=+6.0,
+                    value=[-1.0,+1.0],
+                    marks={str(ha): str(ha) for ha in range(-6,7,1)},
+                    step=0.5
+                ) ,
+                html.Br(),
+               html.H6(children='Observation Bandwidth'),
+                dcc.RangeSlider(
+                    id='freqrange-slider',
+                    count=1,
+                    min=1.0,
+                    max=2.0,
+                    value=[1.5,+1.5],
+                    marks={str(ha): "%2.1f"%(ha) for ha in np.arange(1.0,2.1,0.1)},
+                    step=0.1
+                )
+                ] , style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'})
             
         ], 
     ),
@@ -154,39 +148,71 @@ app.layout = html.Div([
                     max=1,
                     value=0.0,
                     marks={
-                        -0.5: { 'label': 'more compact', 'style': {'color': 'black'}},
-                        0.0: {'label': 'normal', 'style': {'color': 'black'}},
-                        0.5: {'label': 'more extended' , 'style': {'color': 'black'}}
+                        -0.5: { 'label': 'More Compact', 'style': {'color': 'black'}},
+                        0.0: {'label': 'Normal', 'style': {'color': 'black'}},
+                        0.5: {'label': 'More Extended' , 'style': {'color': 'black'}}
                     },
-                    step=0.25,
+                    step=0.1,
                     included=False,
                     updatemode='mouseup'
                 ) 
             ], style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'}), 
             html.Div( [
-                html.H6(children='Pick data weighting scheme'),
-                dcc.RadioItems(
+#                html.H6(children='Pick data weighting scheme'),
+#                dcc.RadioItems(
+#                    id='weighting-picker',
+#                    options=[
+#                        {'label': 'Natural', 'value': 'natural'},
+#                        {'label': 'Robust', 'value': 'robust'},
+#                        {'label': 'Uniform', 'value': 'uniform'}
+#                    ],
+#                    value='natural',
+#                    labelStyle={'display': 'inline-block'}
+#                )
+
+                html.H6(children='Density Weighting'),
+                dcc.Slider(
                     id='weighting-picker',
-                    options=[
-                        {'label': 'Natural', 'value': 'natural'},
-                        {'label': 'Robust', 'value': 'robust'},
-                        {'label': 'Uniform', 'value': 'uniform'}
-                    ],
-                    value='natural',
-                    labelStyle={'display': 'inline-block'}
-                )
+                    min=0.5,
+                    max=+3.7,
+                    value=+3.5,
+                    marks={
+                        +0.7: { 'label': 'Uniform', 'style': {'color': 'black'}},
+                        +3.5: {'label': 'Natural', 'style': {'color': 'black'}},
+                    },
+#                    marks={str(lat):str(lat) for lat in np.arange(+0.0,+3.0, 0.5)},
+                    step=0.05,
+                    included=False,
+                    updatemode='mouseup'
+                ) 
+
+                
             ], style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'}),
             html.Div( [ 
-                html.H6(children='Select the observation hour-angle range'),
-                dcc.RangeSlider(
-                    id='timerange-slider',
-                    count=1,
-                    min=-6.0,
-                    max=+6.0,
-                    value=[-1.0,+1.0],
-                    marks={str(ha): str(ha) for ha in range(-6,7,1)},
-                    step=0.5
-                ) ], style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'}),
+
+                html.H6(children='Object to observe'),
+                dcc.RadioItems(
+                    id='source-dropdown',
+                    options=[
+                        {'label': 'One Point Source', 'value': 'im2'},
+                        {'label': 'Few Points', 'value': 'im1'},
+                        {'label': 'Multi-Scale', 'value': 'im3'}
+                    ],
+                    value='im1',
+                    labelStyle={'display': 'inline-block'}
+                )
+                
+#                html.H6(children='Object to observe'),
+#                dcc.Dropdown(
+#                    id='source-dropdown',
+#                    options=[
+#                        {'label': 'Few Compact Sources', 'value': 'im1'},
+#                        {'label': 'One Point Source', 'value': 'im2'},
+#                        {'label': 'Multi-scale Structure', 'value': 'im3'}
+#                    ],
+#                    value='im1'
+#                )
+            ], style={'width': '30%', 'display': 'inline-block','vertical-align':'top','padding':'20px'}),
         ], 
     )
     
@@ -201,6 +227,7 @@ app.layout = html.Div([
      Output('observed-image', 'figure')],
     [Input('config-dropdown', 'value'),
      Input('timerange-slider', 'value'),
+     Input('freqrange-slider', 'value'),
      Input('source-dropdown', 'value'),
      Input('nant-dropdown', 'value'),
      Input('zoom-slider', 'value'),
@@ -209,7 +236,8 @@ app.layout = html.Div([
      Input('weighting-picker','value')
      ])
 def update_figure(selected_config, 
-                  selected_has, 
+                  selected_has,
+                  selected_fas,
                   selected_im, 
                   selected_nant, 
                   selected_zoom,
@@ -231,6 +259,8 @@ def update_figure(selected_config,
         thischanged = 'source'
     if ctx.triggered[0]['prop_id'].count('timerange-slider'):
         thischanged = 'timerange'
+    if ctx.triggered[0]['prop_id'].count('freqrange-slider'):
+        thischanged = 'freqrange'
     if ctx.triggered[0]['prop_id'].count('zoom-slider'):
         thischanged = 'antzoom'
     if ctx.triggered[0]['prop_id'].count('nant-dropdown'):
@@ -288,11 +318,12 @@ def update_figure(selected_config,
 
     ### Prepare contents of observed image.
     ### Slider callback too
-    if thischanged=='config' or  thischanged=='timerange' or  thischanged=='antzoom' or     thischanged=='nant' or  thischanged=='declination' or   thischanged=='latitude' or thischanged=='weighting':
+    if thischanged=='config' or  thischanged=='timerange' or thischanged=='freqrange' or  thischanged=='antzoom' or     thischanged=='nant' or  thischanged=='declination' or   thischanged=='latitude' or thischanged=='weighting':
         tel.makeUVcov(has=selected_has, 
                       dec=selected_declination,
                       obslatitude=selected_latitude,
-                      weighting=selected_weighting)
+                      weighting=selected_weighting,
+                      bwr=selected_fas)
     tim4 = time.time()
 
     traces3=[]

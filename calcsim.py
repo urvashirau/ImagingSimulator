@@ -144,7 +144,7 @@ class CalcSim:
     def getAntList(self):
         return self.antennalist
 
-    def calcAntUVWList(self,
+    def calcAntUVWList_old(self,
                        has=[-3.5,-1.0], 
                        dec=+50.0, 
                        obslatitude=34.0):
@@ -163,6 +163,32 @@ class CalcSim:
                     locs.append( [ aloc[0]/maxval, aloc[1]/maxval ] )
         return locs
 
+    def calcAntUVWList(self,
+                       has=[-1.0,-1.0], 
+                       dec=+60.0, 
+                       obslatitude=34.0,
+                       bwr=[1.5,1.5]):
+        """
+        For the given timerange, gather a list of rotated antUVWs.
+        For the given bandwidth ratio, gather a list of scaled antUVWs. 
+        """
+        locs=[]
+        maxval=4000.0
+        ##  cell size : 1/(4000.0/(3e+8/1e+9)) * 180.0/3.14 * 60 * 60 = 15.47 arcsec
+        
+        for hourangle in np.arange(has[0],has[1]+0.1,0.25):
+                alocs = self.getAntUVWs(hourangle=hourangle, 
+                                        declination=dec, 
+                                        obslatitude=obslatitude)
+                for aloc in alocs:
+                    locs.append( [ aloc[0]/maxval, aloc[1]/maxval ] )
+
+        flocs=[]
+        for bwratio in np.arange(bwr[0],bwr[1]+0.001,0.1):
+            for loc in locs:
+                flocs.append([ loc[0]*bwratio/1.5, loc[1]*bwratio/1.5 ] ) 
+
+        return flocs
 
     def getAntUVWs(self,
                    hourangle=-3.5, 
@@ -290,13 +316,15 @@ class CalcSim:
 
     def makeUVcov(self,
                   has=[-1.0,+1.0],
-                  dec=+50.0, 
+                  dec=+60.0, 
                   obslatitude=34.0,
-                  weighting='natural'):
+                  weighting=+3.5,
+                  bwr=[1.5,1.5]):
         
         locs = self.calcAntUVWList(has=has, 
                                    dec=dec, 
-                                   obslatitude=obslatitude)
+                                   obslatitude=obslatitude,
+                                   bwr=bwr)
 
         rad=1.5
         aparr = np.zeros((self.npix,self.npix),'float')
@@ -314,10 +342,14 @@ class CalcSim:
         wmax = np.max(np.real(self.uvcov))
         self.uvcov = self.uvcov/wmax
         
-        if weighting=='uniform':
-            self.uvcov = self.uvcov/ (self.uvcov+0.0001)
-        elif weighting=='robust':
-            self.uvcov = (self.uvcov)**2/ ( (self.uvcov)**2 + 0.005 )
+#        if weighting=='uniform':
+#            self.uvcov = self.uvcov/ (self.uvcov+0.0001)
+#        elif weighting=='robust':
+#            #self.uvcov = (self.uvcov)**2/ ( (self.uvcov)**2 + 0.005 )
+
+        R = weighting
+        F = ( (5* (10.0**(-R)) )**2 ) / ( (np.sum((self.uvcov)**2))/np.prod(self.uvcov.shape) ) 
+        self.uvcov = self.uvcov/ (1 + F*(self.uvcov) ) 
 
         self.drawdisk(int(self.npix/2),int(self.npix/2),int(rad))
         self.psf = np.real(self.ft2d(self.uvcov))
@@ -341,6 +373,7 @@ class CalcSim:
         p2=int(self.npix*0.65)
         themax = np.max(self.uvcov[p1:p2,p1:p2])
         return np.rot90(np.fliplr(np.real(np.sqrt(self.uvcov[p1:p2,p1:p2]/themax+0.001))))
+        #return np.rot90(np.fliplr(np.real((self.uvcov[p1:p2,p1:p2]/themax))))
 
 
     #############################################
