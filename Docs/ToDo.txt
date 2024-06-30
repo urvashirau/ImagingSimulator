@@ -1,4 +1,6 @@
-- Replace controls for weighting with one that smoothly go from uniform to natural via the 'robust' weighting implementation. 
+Done - Replace controls for weighting with one that smoothly go from uniform to natural via the 'robust' weighting implementation. 
+
+Done - Add controls for observing bandwidth 
 
 - Add noise (Tsys) with a control for the level, plus the correct math that accounts for 'more data' when the hourangle range is increased.
 
