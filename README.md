@@ -6,7 +6,7 @@ Supported Features :
 - Select array configurations and observation setup options
 - Choose between three types of sources to observe
 - Choose the time duration and bandwidth of the observation 
-- Choose a data weighting scheme (robust weigting varying from natural to uniform)
+- Choose a data weighting scheme (varying between natural to uniform)
 - Display antenna array configuration, spatial frequency coverage and the observed image. 
 
 
