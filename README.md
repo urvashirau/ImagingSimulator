@@ -4,8 +4,9 @@ An interactive tool to demonstrate how an imaging radio interferometer works.
 Supported Features :
 
 - Select array configurations and observation setup options
-- Select of types of sources to observe
-- Choose the time duration of the observation and a data weighting scheme
+- Choose between three types of sources to observe
+- Choose the time duration and bandwidth of the observation 
+- Choose a data weighting scheme (varying between natural to uniform)
 - Display antenna array configuration, spatial frequency coverage and the observed image. 
 
 
