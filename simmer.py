@@ -429,4 +429,4 @@ def update_figure(selected_config,
 #### Start the App
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8000, host='127.0.0.1')
+    app.run(debug=True, port=8000, host='127.0.0.1')
